@@ -1,12 +1,12 @@
 class ApplicationController < ActionController::Base
+  before_action :authenticate_user!,except: [:top]
   # devise利用の機能が使われる場合、その前にconfigure_permitted_parametersアクションを実行
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def after_sign_in_path_for(resource)
     post_images_path
   end
-
-  # 呼び出された他のコントローラからも参照できる
+  
   protected
   
   def configure_permitted_parameters
